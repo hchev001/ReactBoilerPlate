@@ -17,13 +17,13 @@ module.exports = {
                 }
             },
             {
-              test: /\.css$/,
+              test: /\.scss$/,
               use: [
                 {
-                  loader: "style-loader"
+                  loader: "style-loader" // creates style nodes from JS strings
                 },
                 {
-                  loader: "css-loader",
+                  loader: "css-loader", // translate CSS into CommonJS
                   options: {
                     modules: true,
                     importLoaders: 1,
@@ -31,6 +31,9 @@ module.exports = {
                     sourceMap: true,
                     minimize: true
                   }
+                },
+                {
+                  loader: "sass-loader" // compiles Sass to CSS
                 }
               ]
             }
