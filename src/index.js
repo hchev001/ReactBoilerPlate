@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './styles/appStyles.scss';
 
 const Index = () => {
-  return <div>Hello React!</div>;
+  return <div className="demo">
+      <h1 className="example">Demo</h1>Hello React!
+    </div>;
 };
 
 ReactDOM.render(<Index />, document.getElementById("index"));
