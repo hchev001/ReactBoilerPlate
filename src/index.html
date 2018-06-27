@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
   <title>React and Webpack4</title>
 </head>
 <body>
   <section id="index"></section>
+  <script src="%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </body>
 </html>

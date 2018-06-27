@@ -1,11 +1,14 @@
+const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-
-const htmlPlugin = new HtmlWebPackPlugin({
-  template: "./src/index.html",
-  filename: "./index.html"
-});
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
 
 module.exports = {
+    entry: { main: './src/index.js'},
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].[hash].js'
+    },
     module: {
         rules: [
             {
@@ -17,20 +20,27 @@ module.exports = {
                 }
             },
             {
-              test: /\.scss$/,
-              use: [
-                {
-                  loader: "style-loader" // creates style nodes from JS strings
-                },
-                {
-                  loader: "css-loader", // translate CSS into CommonJS
-                },
-                {
-                  loader: "sass-loader" // compiles Sass to CSS
-                }
-              ]
-            }
+                test: /\.scss$/,
+                use:[
+                    'style-loader',
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader'
+                ]
+            },
         ]
     },
-    plugins: [htmlPlugin]
+    plugins: [
+        new MiniCssExtractPlugin({  // extracts css from javascript into own file
+            filename: 'style.[contenthash].css'
+        }),
+        new HtmlWebPackPlugin({
+            inject: false,
+            hash: true,
+            template: './src/index.html',
+            filename: 'index.html'
+        }),
+        new WebpackMd5Hash()
+    ]
 };
